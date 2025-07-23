@@ -1,11 +1,6 @@
 package ru.kpfu.itis.cmsforblogs.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -14,6 +9,7 @@ import lombok.experimental.Accessors;
 import ru.kpfu.itis.cmsforblogs.dictionary.UserRole;
 
 import java.io.Serializable;
+import java.util.List;
 
 import static jakarta.persistence.EnumType.STRING;
 
@@ -31,12 +27,22 @@ public class User implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false)
     private String hashPassword;
 
+    @Column(nullable = false, unique = true)
     private String username;
 
     @Enumerated(STRING)
     private UserRole role;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<Post> posts;
+
+    public void addPost(Post post){
+        posts.add(post);
+        post.setUser(this);
+    }
 
 }
 

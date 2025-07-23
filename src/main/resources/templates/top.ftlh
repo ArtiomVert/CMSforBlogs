@@ -11,12 +11,12 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">Мой блог</a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <li><a class="dropdown-item" href="/blog/">Просмотр записей</a></li>
-                        <li><a class="dropdown-item" href="/blog/create">Создать запись</a></li>
+                        <li><a class="dropdown-item" href="/blogs/my">Просмотр записей</a></li>
+                        <li><a class="dropdown-item" href="/blogs/create">Создать запись</a></li>
                     </ul>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/profile">Профиль</a>
+                <li class="nav-item dropdown">
+                    <a class="nav-link" href="/blogs" aria-expanded="false">Dct ,kjub</a>
                 </li>
             </ul>
 

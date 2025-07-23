@@ -18,11 +18,12 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         HttpSecurity httpSecurity = http.authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("signUp").anonymous()
-                        .requestMatchers("blogs/**").authenticated()
+                        .requestMatchers("/signUp").anonymous()
+                        .requestMatchers("/blogs/**").authenticated()
                         .requestMatchers("/admin/**").hasRole(UserRole.ADMIN.toString())
                         .anyRequest().permitAll())
                 .formLogin(Customizer.withDefaults())
+                .rememberMe(rememberMe -> rememberMe.key("uniqueAndSecret"))
                 .logout(Customizer.withDefaults())
                 .csrf(csrf -> csrf.disable());
 
