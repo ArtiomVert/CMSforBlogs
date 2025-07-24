@@ -14,7 +14,7 @@
                     <div class="card-body">
                         <i class="bi bi-exclamation-triangle-fill text-danger" style="font-size: 4rem;"></i>
                         <p class="lead mt-3">${errorMessage}</p>
-                        <a href="${springMacroRequestContext.getContextPath()}/" class="btn btn-primary mt-3">
+                        <a href="/" class="btn btn-primary mt-3">
                             <i class="bi bi-house-door"></i> Вернуться на главную
                         </a>
                     </div>

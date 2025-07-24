@@ -16,7 +16,7 @@
                     </ul>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link" href="/blogs" aria-expanded="false">Dct ,kjub</a>
+                    <a class="nav-link" href="/blogs" aria-expanded="false">Все блоги</a>
                 </li>
             </ul>
 

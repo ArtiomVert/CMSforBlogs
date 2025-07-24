@@ -35,6 +35,8 @@
         <#list posts as post>
             <div class="card mb-4">
                 <div class="card-body">
+                    <a class="card-text" href="blogs/${post.user.id}">Автор: ${post.user.username}</a>
+
                     <h2 class="card-title">${post.title}</h2>
 
                     <#assign limit = 300>

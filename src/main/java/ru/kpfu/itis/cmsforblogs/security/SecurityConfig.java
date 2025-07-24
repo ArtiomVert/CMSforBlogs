@@ -18,9 +18,10 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         HttpSecurity httpSecurity = http.authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/signUp").anonymous()
+                        .requestMatchers("/VAADIN/**", "/frontend/**", "/webjars/**", "/images/**", "/login").permitAll()
+                        .requestMatchers("/signUp", "/login").anonymous()
                         .requestMatchers("/blogs/**").authenticated()
-                        .requestMatchers("/admin/**").hasRole(UserRole.ADMIN.toString())
+                        .requestMatchers("/admin/**").hasRole("ADMIN")
                         .anyRequest().permitAll())
                 .formLogin(Customizer.withDefaults())
                 .rememberMe(rememberMe -> rememberMe.key("uniqueAndSecret"))

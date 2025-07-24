@@ -1,10 +1,12 @@
 package ru.kpfu.itis.cmsforblogs.controller;
 
 import lombok.AllArgsConstructor;
+import org.springframework.data.repository.query.Param;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import ru.kpfu.itis.cmsforblogs.security.details.UserDetailsImpl;
 import ru.kpfu.itis.cmsforblogs.service.BlogService;
@@ -31,6 +33,13 @@ public class WallBlogController {
         UserDetailsImpl user = (UserDetailsImpl) ((Authentication) principal).getPrincipal();
         model.addAttribute("user_login", user.getUsername());
         model.addAttribute("posts", blogService.getMyBlogs(user.getUsername()));
+        return "blogs";
+    }
+    @GetMapping("/{id}")
+    public String getBlogByIdPage(Principal principal, Model model, @PathVariable("id") Long id) {
+        UserDetailsImpl user = (UserDetailsImpl) ((Authentication) principal).getPrincipal();
+        model.addAttribute("user_login", user.getUsername());
+        model.addAttribute("posts", blogService.getBlogsById(id));
         return "blogs";
     }
 

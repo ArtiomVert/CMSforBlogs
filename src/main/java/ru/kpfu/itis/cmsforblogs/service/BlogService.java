@@ -73,4 +73,11 @@ public class BlogService {
     public List<Post> getBlogs() {
         return postRepository.findNew();
     }
+
+    public List<Post> getBlogsById(Long id) {
+        User user = userRepository.findById(id).orElseThrow(
+                ()->new RuntimeException("User not found")
+        );
+        return postRepository.findAllByUser(user);
+    }
 }

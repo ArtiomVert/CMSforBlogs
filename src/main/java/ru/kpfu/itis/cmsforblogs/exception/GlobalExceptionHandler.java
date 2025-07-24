@@ -11,9 +11,9 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(Exception.class)
     public String handleUserNotFoundException(Exception ex, HttpServletRequest request) {
         ex.printStackTrace();
-        request.setAttribute(RequestDispatcher.ERROR_STATUS_CODE, HttpStatus.NOT_FOUND.value());
-        request.setAttribute(RequestDispatcher.ERROR_MESSAGE, ex.getMessage());
-        request.setAttribute(RequestDispatcher.ERROR_EXCEPTION, ex);
+        request.setAttribute("statusCode", HttpStatus.NOT_FOUND.value());
+        request.setAttribute("errorMessage", ex.getMessage());
+        request.setAttribute("exception", ex);
         return "forward:/error";
     }
 
