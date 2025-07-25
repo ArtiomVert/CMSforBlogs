@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import ru.kpfu.itis.cmsforblogs.dictionary.PostTeg;
 import ru.kpfu.itis.cmsforblogs.dto.CreatePostDto;
 import ru.kpfu.itis.cmsforblogs.security.details.UserDetailsImpl;
 import ru.kpfu.itis.cmsforblogs.service.BlogService;
@@ -27,6 +28,7 @@ public class CreateBlogController {
     public String getCreatePage(Principal principal, Model model) {
         UserDetailsImpl user = (UserDetailsImpl) ((Authentication) principal).getPrincipal();
         model.addAttribute("user_login", user.getUsername());
+        model.addAttribute("availableTegs", PostTeg.values());
         return "minio";
     }
 

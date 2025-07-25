@@ -1,12 +1,15 @@
 package ru.kpfu.itis.cmsforblogs.service;
 
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+import ru.kpfu.itis.cmsforblogs.dictionary.PostTeg;
 import ru.kpfu.itis.cmsforblogs.dto.CreatePostDto;
 import ru.kpfu.itis.cmsforblogs.dto.KafkaNotificationMessage;
 import ru.kpfu.itis.cmsforblogs.entity.Post;
 import ru.kpfu.itis.cmsforblogs.entity.PostMaterial;
+import ru.kpfu.itis.cmsforblogs.entity.PostTegEntity;
 import ru.kpfu.itis.cmsforblogs.entity.User;
 import ru.kpfu.itis.cmsforblogs.repository.PostRepository;
 import ru.kpfu.itis.cmsforblogs.repository.UserRepository;
@@ -18,6 +21,7 @@ import java.util.regex.Pattern;
 
 @AllArgsConstructor
 @Service
+@Slf4j
 public class BlogService {
 
     private final UserRepository userRepository;
@@ -35,6 +39,7 @@ public class BlogService {
                 .title(dto.getTitle())
                 .text(dto.getText())
                 .materials(new ArrayList<PostMaterial>())
+                .tegs(new ArrayList<PostTegEntity>())
                 .build();
         postRepository.save(post);
         user.addPost(post);
@@ -48,6 +53,12 @@ public class BlogService {
                     .nameInMinio(filename)
                     .build();
             post.addMaterial(postMaterial);
+        }
+        for (PostTeg teg: dto.getTegs()){
+            PostTegEntity postTegEntity = PostTegEntity.builder()
+                    .teg(teg)
+                    .build();
+            post.addTeg(postTegEntity);
         }
         postRepository.save(post);
         sendMessages(post.getId());

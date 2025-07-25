@@ -79,6 +79,17 @@
                             Показать все файлы
                         </button>
                     </#if>
+
+                    <#if (post.tegs?size > 0)>
+                        <p>Выбранные теги:
+                            <#list post.tegs as teg>
+                                #${teg.teg.toString()}
+                            </#list>
+                        </p>
+                    <#else>
+                        <p>Теги не выбраны</p>
+                    </#if>
+
                 </div>
             </div>
         </#list>

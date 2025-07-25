@@ -24,6 +24,25 @@
                 <ul id="fileList"></ul>
             </div>
 
+            <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="tagsDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                    Выберите теги
+                </button>
+                <ul class="dropdown-menu p-3" aria-labelledby="tagsDropdown" style="min-width: 300px;">
+                    <#list availableTegs as teg>
+                        <li>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox"
+                                       id="teg_${teg}" name="tegs" value="${teg}">
+                                <label class="form-check-label" for="teg_${teg}">
+                                    ${teg}
+                                </label>
+                            </div>
+                        </li>
+                    </#list>
+                </ul>
+            </div>
+
             <div class="d-grid gap-2 d-md-block">
                 <button type="submit" class="btn btn-primary me-md-2">Создать запись</button>
             </div>

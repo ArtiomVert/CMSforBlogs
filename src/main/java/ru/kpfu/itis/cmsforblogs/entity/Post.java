@@ -35,10 +35,17 @@ public class Post {
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
     private List<PostMaterial> materials;
 
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
+    private List<PostTegEntity> tegs;
+
     public void addMaterial(PostMaterial postMaterial) {
         materials.add(postMaterial);
         postMaterial.setPost(this);
     }
 
+    public void addTeg(PostTegEntity teg) {
+        tegs.add(teg);
+        teg.setPost(this);
+    }
 
 }
