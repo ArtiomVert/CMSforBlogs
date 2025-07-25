@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import ru.kpfu.itis.cmsforblogs.dto.CreatePostDto;
+import ru.kpfu.itis.cmsforblogs.dto.KafkaNotificationMessage;
 import ru.kpfu.itis.cmsforblogs.entity.Post;
 import ru.kpfu.itis.cmsforblogs.entity.PostMaterial;
 import ru.kpfu.itis.cmsforblogs.entity.User;
@@ -23,6 +24,7 @@ public class BlogService {
     private final PostRepository postRepository;
 
     private final MinioService minioService;
+    private final NotificationProducer notificationProducer;
 
     public void createBlog(String username, CreatePostDto dto){
         User user = userRepository.findByUsername(username).orElseThrow(
@@ -48,6 +50,7 @@ public class BlogService {
             post.addMaterial(postMaterial);
         }
         postRepository.save(post);
+        sendMessages(post.getId());
     }
 
     private String getType(String filename){
@@ -79,5 +82,16 @@ public class BlogService {
                 ()->new RuntimeException("User not found")
         );
         return postRepository.findAllByUser(user);
+    }
+
+    public void sendMessages(Long postId){
+        //какой-то список пользователей
+        List<User> consumers = userRepository.findAll();
+        for (User user:consumers){
+            notificationProducer.sendMessage(KafkaNotificationMessage.builder()
+                            .consumerUsername(user.getUsername())
+                            .newPostId(postId)
+                    .build());
+        }
     }
 }
